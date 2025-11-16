@@ -1,12 +1,12 @@
 #!/usr/bin/env -S deno run -A
 
-import { parseArgs } from "@std/cli/parse-args";
-import { Readability } from "@mozilla/readability";
-import TurndownService from "turndown";
-import { JSDOM } from "jsdom";
-import { ensureDir } from "@std/fs";
-import { dirname } from "@std/path";
-import { chromium } from "playwright";
+import { parseArgs } from "jsr:@std/cli@^1.0.0/parse-args";
+import { Readability } from "npm:@mozilla/readability@0.5.0";
+import TurndownService from "npm:turndown@7.2.0";
+import { JSDOM } from "npm:jsdom@25.0.1";
+import { ensureDir } from "jsr:@std/fs@^1.0.0";
+import { dirname } from "jsr:@std/path@^1.0.0";
+import { chromium } from "npm:playwright@^1.48.0";
 
 interface Options {
   url: string;
