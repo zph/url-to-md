@@ -16,6 +16,12 @@ A Deno CLI tool that converts any webpage to clean Markdown format using Playwri
 
 ## Installation
 
+### Deno install technique
+
+```
+deno install -A --global -n url-to-md https://raw.githubusercontent.com/zph/url-to-md/refs/heads/main/url-to-md.ts
+```
+
 ### Install Playwright browsers first
 
 Before using the tool, install the required browser:
