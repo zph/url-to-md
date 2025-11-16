@@ -1,0 +1,10 @@
+# Deno
+node_modules/
+.deno/
+
+# Output files
+*.md
+!README.md
+
+# OS
+.DS_Store

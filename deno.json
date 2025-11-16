@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "dev": "deno run -A url-to-md.ts",
+    "install": "deno install -A -n url-to-md url-to-md.ts"
+  },
+  "imports": {
+    "@std/cli": "jsr:@std/cli@^1.0.0",
+    "@std/fs": "jsr:@std/fs@^1.0.0",
+    "@std/path": "jsr:@std/path@^1.0.0"
+  },
+  "nodeModulesDir": "auto"
+}
