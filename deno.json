@@ -1,12 +1,17 @@
 {
   "tasks": {
     "dev": "deno run -A url-to-md.ts",
-    "install": "deno install -A -n url-to-md url-to-md.ts"
+    "install": "deno install -A -n url-to-md url-to-md.ts",
+    "install-browsers": "npx -y playwright@^1.48.0 install chromium"
   },
   "imports": {
     "@std/cli": "jsr:@std/cli@^1.0.0",
     "@std/fs": "jsr:@std/fs@^1.0.0",
-    "@std/path": "jsr:@std/path@^1.0.0"
+    "@std/path": "jsr:@std/path@^1.0.0",
+    "playwright": "npm:playwright@^1.48.0",
+    "@mozilla/readability": "npm:@mozilla/readability@0.5.0",
+    "turndown": "npm:turndown@7.2.0",
+    "jsdom": "npm:jsdom@25.0.1"
   },
   "nodeModulesDir": "auto"
 }

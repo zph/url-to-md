@@ -1,12 +1,12 @@
 #!/usr/bin/env -S deno run -A
 
-import { parseArgs } from "jsr:@std/cli/parse-args";
-import { Readability } from "npm:@mozilla/readability@0.5.0";
-import TurndownService from "npm:turndown@7.2.0";
-import { JSDOM } from "npm:jsdom@25.0.1";
-import { ensureDir } from "jsr:@std/fs";
-import { dirname } from "jsr:@std/path";
-import { chromium } from "npm:playwright@1.49.1";
+import { parseArgs } from "@std/cli/parse-args";
+import { Readability } from "@mozilla/readability";
+import TurndownService from "turndown";
+import { JSDOM } from "jsdom";
+import { ensureDir } from "@std/fs";
+import { dirname } from "@std/path";
+import { chromium } from "playwright";
 
 interface Options {
   url: string;
@@ -29,8 +29,42 @@ Examples:
   url-to-md https://example.com -o article.md
 `;
 
+async function ensureBrowserInstalled(): Promise<void> {
+  try {
+    const executablePath = chromium.executablePath();
+    if (executablePath) {
+      // Check if the executable file actually exists
+      try {
+        await Deno.stat(executablePath);
+        return; // Browser is already installed
+      } catch {
+        // File doesn't exist, need to install
+      }
+    }
+  } catch {
+    // executablePath() might throw if browser isn't installed
+  }
+
+  // Browser not found, install it
+  console.error("Playwright browser not found. Installing Chromium...");
+  const installCmd = new Deno.Command("npx", {
+    args: ["-y", "playwright@^1.48.0", "install", "chromium"],
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+
+  const { success } = await installCmd.output();
+  if (!success) {
+    throw new Error("Failed to install Playwright browser. Please run: npx playwright install chromium");
+  }
+  console.error("✓ Browser installed successfully");
+}
+
 async function convertUrlToMarkdown(options: Options): Promise<string> {
   const { url } = options;
+
+  // Ensure browser is installed before launching
+  await ensureBrowserInstalled();
 
   // Launch browser and fetch webpage
   console.error(`Launching browser...`);
